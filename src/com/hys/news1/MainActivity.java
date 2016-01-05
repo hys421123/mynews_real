@@ -48,7 +48,7 @@ public void onCreate(Bundle savedInstanceState) {
 	.commit();
 	
 	// customize the SlidingMenu
-	getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+	getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 	
 }//onCreate
 
