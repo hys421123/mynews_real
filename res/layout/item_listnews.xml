@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"     
+    >
+    <ImageView 
+        
+        android:id="@+id/iv_news_icon"
+        android:layout_width="90dip"
+        android:layout_height="70dip"
+        android:src="@drawable/ic_launcher"
+        android:scaleType="fitXY"
+        />
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_news_icon"
+        android:orientation="vertical"
+        >
+        <TextView 
+            android:id="@+id/tv_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="萌萌哒的你啥覅咖啡喝完"
+            android:textSize="20sp"
+            />
+
+        <RelativeLayout
+            
+
+			tools:ignore="RtlSymmetry"
+
+            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:gravity="center_vertical"
+            android:paddingRight="10dip"
+            android:paddingEnd="10dip"
+            >
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015-05-06 13:05"
+                android:textColor="#999999"
+                android:layout_centerVertical="true"
+                 />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                
+       
+                android:src="@drawable/icon_news_comment_num" />
+        </RelativeLayout>
+				android:padding="10dip"
+           <!--          android:layout_alignParentRight="true" -->
+    </LinearLayout>
+
+</RelativeLayout>

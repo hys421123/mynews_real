@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_left_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    
+    android:background="#272727"
+    android:paddingTop="100dp" 
+     android:paddingBottom="100dp" 
+    >
+
+    
+    <!-- 静态导入其他layout  -->
+
+    <include  layout="@layout/item_left_menu" />0
+    
+  <View 
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        />1
+  
+   <include layout="@layout/item_left_menu" />2
+   
+     <View 
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+          android:background="#ffffff"
+        />3
+
+    <include layout="@layout/item_left_menu" /> 4
+    
+      <View 
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        />5
+
+   <include layout="@layout/item_left_menu" />6
+   
+     <View 
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        />7
+     
+	<include layout="@layout/item_left_menu" />8
+
+
+</LinearLayout>

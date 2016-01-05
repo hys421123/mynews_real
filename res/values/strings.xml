@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">新闻客户端1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string-array
+        name="menu_names"
+         >
+        <item >新闻</item>
+        <item >专题</item>
+        <item >组图</item>
+        <item >互动</item>
+         <item >投票</item>
+    </string-array>
+
+</resources>
