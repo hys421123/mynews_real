@@ -28,7 +28,9 @@ public void onCreate(Bundle savedInstanceState) {
 	//侧栏展开,主页面剩余宽度 
 	sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 	sm.setFadeDegree(0.35f);
-	sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+	//SlidingMenu.TOUCHMODE_FULLSCREEN表示屏幕的任何区域都可以滑动菜单
+	//设置成margin  只能从边缘滑动左侧菜单，而在屏幕其他位置，滑动响应会传给viewpager
+	sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 
 	
 	// set the Above View

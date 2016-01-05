@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 
 import com.hys.news1.MyApplication;
+import com.hys.news1.NewsActivity;
 import com.hys.news1.R;
 import com.hys.news1.adapter.MyPagerAdapter;
 import com.hys.news1.adapter.NewsItemListViewAdapter;
@@ -32,7 +33,9 @@ import com.hys.news1.bean.JsonNewsChildrenBean;
 import com.hys.news1.bean.ListViewNewsItem;
 import com.hys.news1.bean.NewsbjContentBean;
 import com.hys.news1.view.RollViewPager;
+import com.hys.news1.view.RollViewPager.MyPagerClickListener;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;//兼容性更好，注意别选错包
@@ -43,6 +46,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,18 +56,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//萌萌哒1
+//
 //  小bug，  换页时，tab依然处在第二页中
 
 
-//各个Tab间的viewpager,右边的界面布局
+//各个Tab间的viewpager,
+//右边的界面布局,
+//解析gson数据到实际新闻内容
+
 public class ViewpagerFrm1 extends Fragment{
 
 	private PullToRefreshListView mPullRefreshListView;
 	private ListAdapter mAdapter;
 	private View topView;
 	private MyPagerAdapter myPagerAdapter;
-
+	private NewsItemListViewAdapter	mNewsItemAdapter;
+	
+	
 	//网络请求有关
 	private RequestQueue mQueue;
 	private ImageLoader imageLoader;
@@ -105,7 +115,7 @@ public class ViewpagerFrm1 extends Fragment{
 		return mPullRefreshListView;
 	}//onCreateView
 	
-
+	
 		
 	
 	
@@ -199,7 +209,7 @@ public class ViewpagerFrm1 extends Fragment{
 		List<ContentNewsItemBean> listnews = Arrays.asList(news);
 
 		
-		NewsItemListViewAdapter	mNewsItemAdapter=new NewsItemListViewAdapter(listnews,imageLoader, getActivity());
+		mNewsItemAdapter=new NewsItemListViewAdapter(listnews,imageLoader, getActivity());
 			
 		//只有显示了mAdapter后，才能一起显示itemView的内容
 		listview.setAdapter(mNewsItemAdapter);
@@ -253,21 +263,23 @@ public class ViewpagerFrm1 extends Fragment{
 		viewpager_container.addView(rollviewpager);
 		rollviewpager.setAdapter(myPagerAdapter);
 		rollviewpager.openTimer();
-
+		rollviewpager.setOnPagerClickListener(new MyPagerClickListener() {
+			
+			@Override
+			public void onPagerClick(int position) {
+				// TODO Auto-generated method stub
+				String url=topnews[position].getUrl();
+				Intent intent=new Intent(getActivity(), NewsActivity.class);
+				intent.putExtra("url", url);
+				startActivity(intent);
+				
+			}
+		});
 	}//initNewsTop()
 	
 	//初始化换页圆点
 	private void initDot(int position){
-		
-//		ImageView iv=new ImageView(getActivity());
-//		LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(
-//				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//		params.setMargins(5, 0, 5, 0);
-//		iv.setLayoutParams(params);
-//		iv.setImageResource(R.drawable.dot_focus);
-//		ll_dot.addView(iv);
-		
-	
+
 		ll_dot.removeAllViews();
 		for(int i=0;i<topnews.length;i++){
 			ImageView iv=new ImageView(getActivity());
@@ -303,7 +315,20 @@ public class ViewpagerFrm1 extends Fragment{
 		
 		//	Add a fixed view to appear at the top of the list. 
 		listview.addHeaderView(topView);
-		
+		//给listview 的item设置点击事件
+		listview.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// TODO Auto-generated method stub
+				position=position-2;
+				ContentNewsItemBean bean= (ContentNewsItemBean) mNewsItemAdapter.getItem(position);
+				String url=bean.getUrl();
+				Intent intent=new Intent(getActivity(), NewsActivity.class);
+				intent.putExtra("url", url);
+				startActivity(intent);
+			}
+		});
 	
 	}//initPullRefresh()方法
 	@Override

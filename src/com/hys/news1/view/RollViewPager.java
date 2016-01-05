@@ -18,6 +18,8 @@ public class RollViewPager extends ViewPager{
 	private int topNewsLength;
 	private Timer timer;
 	private int downX,downY;
+	private MyPagerClickListener pagerClickListener;
+	private long downTime;
 	
 	private Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -44,6 +46,13 @@ public class RollViewPager extends ViewPager{
 		// TODO Auto-generated constructor stub
 	}
 
+	//给rollviewpager设置页面点击事件
+	public void setOnPagerClickListener(MyPagerClickListener pagerClickListener){
+		this.pagerClickListener=pagerClickListener;
+	}
+	public interface MyPagerClickListener{
+		public void onPagerClick(int position);
+	}
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		int x = (int) event.getX();
@@ -51,6 +60,8 @@ public class RollViewPager extends ViewPager{
 		
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
+			
+			downTime = System.currentTimeMillis();
 			downX = x;
 			downY = y;
 			
@@ -70,6 +81,11 @@ public class RollViewPager extends ViewPager{
 //			getParent().requestDisallowInterceptTouchEvent(true);
 			break;
 		case MotionEvent.ACTION_UP:
+			long upTime=System.currentTimeMillis();
+			long timePeriod=upTime-downTime;
+			if(x==downX&&y==downY&&timePeriod<500){
+				pagerClickListener.onPagerClick(getCurrentItem());
+			}
 			break;
 		}
 		return super.onTouchEvent(event);
